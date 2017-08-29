@@ -115,27 +115,43 @@ public class Frm20170821 extends javax.swing.JFrame implements Runnable{
          while(true){
              //Exercicios20170807();
              Random r = new Random();
-             int x = r.nextInt(getWidth()-40);
-             int y = r.nextInt(getHeight()-40);
-             int x1 = 0;
+             boolean x = true,y = true;
+             int x1 = r.nextInt(getWidth()-40);
+             int y1 = r.nextInt(getHeight()-40);
+             int x2 = 300;
              while(true){
                  Graphics g = getBufferStrategy().getDrawGraphics();
                  g.setColor(Color.WHITE);
                  g.fillRect(0, 0, getWidth(), getHeight());
                  g.setColor(Color.PINK);
-                 g.fillOval(x, y, 40, 40);
-                 g.fillRect(x1, getHeight()-50, 40, 15);
+                 g.fillOval(x1, y1, 40, 40);
+                 g.fillRect(x2, getHeight()-50, 40, 15);
                  
-                 g.drawString("Placar = " + x1, 20, 50);
-                 if(setaDireita)
-                     x1++;
-                 else if(setaEsquerda)
+                 g.drawString("Placar = " + x2, 20, 50);
+                 //Região para controle de seta
+                 x2 = ControleMovimentoRaquete(x2);
+                 
+                 if(x1 <= 0)
+                     x = true;
+                 else if(x1 >= getWidth()-40) 
+                     x = false;
+                 
+                 if(y1 <= 0+25)
+                     y = true;
+                 else if(y1 >= getHeight()-40) 
+                     y = false ;
+                 
+                 if(x)
+                    x1++;
+                 else
                      x1--;
-                     
-                 x++;
-                 y++;
+                 if(y)
+                    y1++;
+                 else
+                     y1--;                             
+                 //y++;
                  try {
-                     Thread.sleep(10);
+                     Thread.sleep(5);
                  } catch (InterruptedException ex) {
                      
                  }
@@ -144,7 +160,16 @@ public class Frm20170821 extends javax.swing.JFrame implements Runnable{
              }
         }
     }
-
+    
+    public int ControleMovimentoRaquete(int x2){
+        if(setaDireita)
+            return x2 +=3;
+        else if(setaEsquerda)
+            return x2 -=3;
+        else
+            return x2;            
+    }
+     
     public void Exercicios20170807(){
         //Coleta o buffer disponível e coloca o gráfico para permitir desenhar
             Graphics g = getBufferStrategy().getDrawGraphics();        
@@ -159,8 +184,7 @@ public class Frm20170821 extends javax.swing.JFrame implements Runnable{
             for (int i = 5; i <= 200; i+=5) {
                 g.drawRect(a - i , b -i, c +i*2 , d +i*2);
             }
-            
-            
+                       
             //Exercicio 3
             
             int e = 200;
