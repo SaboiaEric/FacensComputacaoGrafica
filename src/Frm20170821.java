@@ -118,16 +118,18 @@ public class Frm20170821 extends javax.swing.JFrame implements Runnable{
              boolean x = true,y = true;
              int x1 = r.nextInt(getWidth()-40);
              int y1 = r.nextInt(getHeight()-40);
-             int x2 = 300;
+             int x2 = 0;
              while(true){
                  Graphics g = getBufferStrategy().getDrawGraphics();
                  g.setColor(Color.WHITE);
                  g.fillRect(0, 0, getWidth(), getHeight());
                  g.setColor(Color.PINK);
                  g.fillOval(x1, y1, 40, 40);
-                 g.fillRect(x2, getHeight()-50, 40, 15);
+                 g.fillRect(x2, getHeight()-50, 60, 15);
                  
                  g.drawString("Placar = " + x2, 20, 50);
+                 g.drawString("Largura = " + getWidth(), 20, 70);
+                 g.drawString("Altura = " + getHeight(), 20, 90);
                  //Região para controle de seta
                  x2 = ControleMovimentoRaquete(x2);
                  
@@ -163,11 +165,13 @@ public class Frm20170821 extends javax.swing.JFrame implements Runnable{
     
     public int ControleMovimentoRaquete(int x2){
         if(setaDireita)
-            return x2 +=3;
+            if(x2 + 2 < getWidth()-60) //Se for menor adiciona 3 para a direita
+                return x2 +=2;
         else if(setaEsquerda)
-            return x2 -=3;
-        else
-            return x2;            
+            if(x2 - 2 > 0 + 60) //Se for maior adiciona 3 para a esquerda
+                return x2 -=2;
+        
+        return x2;
     }
      
     public void Exercicios20170807(){
