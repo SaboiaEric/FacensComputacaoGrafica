@@ -14,7 +14,7 @@ public class Game  {
     private boolean fimDeJogo= false;
     private long ultimoTiro;
     private int qtdOp = 0;
-    private int fase = 3;
+    private int fase = 1;
 
     public Game(int largura, int altura) {
         this.largura = largura;
@@ -27,21 +27,20 @@ public class Game  {
     //Objetos inimigos
     public void initGame()
     {
-        if(fase != 3){
-            add(new Bola(50, 50, 50, 50, Color.BLACK, this));
-            qtdOp++;
-            add(new Bola(100, 50, 50, 50, Color.BLACK, this));
-            qtdOp++;
-            add(new Bola(150, 50, 50, 50, Color.BLACK, this));
-            qtdOp++;
+        switch(fase){
+            case 1:
+                criaInimigos(5,false);
+                break;
+            case 2:
+                criaInimigos(7,false);
+                break;
+            case 3:
+                criaInimigos(10,false);
+                break;
+            case 4:
+                criaInimigos(0,true);
         }
-        else{
-          add(new Bola(150, 50, 50, 50, Color.RED, this));
-          qtdOp++;
-          //c.incX=10;
-          //c.incY=10;
-          placar ++;
-        }
+        placar++;
         placar = 0;
         danos = 0;
     }
@@ -215,7 +214,7 @@ public class Game  {
     private void verificarFim() {
            if(objetos.size() == 1 || lixo.contains(player))
            {
-                if(fase != 3){
+                if(fase != 4){
                     fase++;
                     objetos.clear();
                     lixo.clear();
@@ -289,8 +288,16 @@ public class Game  {
       }
     }
     
-    
-    
-    
-    
+    private void criaInimigos(int qtd, boolean chefe){
+        if(!chefe){
+            for(int i = 1; i < qtd+1; i++){
+                add(new Bola(50+i*50, 50, 50, 50, Color.BLACK, this));
+                qtdOp++;
+            }
+        }
+        else{
+            add(new Bola(150, 50, 50, 50, Color.RED, this));
+            qtdOp++;
+        }
+    } 
 }
