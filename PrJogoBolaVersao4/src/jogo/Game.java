@@ -14,6 +14,7 @@ public class Game  {
     private boolean fimDeJogo= false;
     private long ultimoTiro;
     private int qtdOp = 0;
+    private int fase = 1;
 
     public Game(int largura, int altura) {
         this.largura = largura;
@@ -26,12 +27,17 @@ public class Game  {
     //Objetos inimigos
     public void initGame()
     {
-        add(new Bola(50, 50, 50, 50, Color.BLACK, this));
-        qtdOp++;
-        add(new Bola(100, 50, 50, 50, Color.BLACK, this));
-        qtdOp++;
-        add(new Bola(150, 50, 50, 50, Color.BLACK, this));
-        qtdOp++;
+        if(fase != 4){
+            add(new Bola(50, 50, 50, 50, Color.BLACK, this));
+            qtdOp++;
+            add(new Bola(100, 50, 50, 50, Color.BLACK, this));
+            qtdOp++;
+            add(new Bola(150, 50, 50, 50, Color.BLACK, this));
+            qtdOp++;
+        }
+        else{
+            
+        }
         placar = 0;
         danos = 0;
     }
@@ -115,6 +121,7 @@ public class Game  {
                 fimDeJogo = false;
                 reiniciar = false;
                 qtdOp = 0;
+                fase = 1;
                 initGame();
             }
     }
@@ -177,7 +184,8 @@ public class Game  {
     private void desenharPlacar(Graphics bg) {
         bg.setColor(Color.BLACK);
         bg.drawString("Placar: " + placar + " Danos: " + danos,50,50);
-        bg.drawString("OP: " + qtdOp, 50,100);
+        bg.drawString("OP: " + qtdOp, 50,75);
+        bg.drawString("FASE: " + fase, getLargura()-130,getAltura()-70);
     }
 
     private void limpaTela(Graphics bg) {
@@ -203,11 +211,19 @@ public class Game  {
     private void verificarFim() {
            if(objetos.size() == 1 || lixo.contains(player))
            {
-               fimDeJogo = true;
-                objetos.clear();
-                lixo.clear();
-                objetos.add(player);
-                
+                if(fase != 4){
+                    fase++;
+                    objetos.clear();
+                    lixo.clear();
+                    objetos.add(player);
+                    this.initGame();
+                }
+                else{
+                    fimDeJogo = true;
+                    objetos.clear();
+                    lixo.clear();
+                    objetos.add(player);
+                }
            }
            else
            {
