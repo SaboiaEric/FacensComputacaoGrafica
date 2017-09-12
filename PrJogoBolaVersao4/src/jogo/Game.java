@@ -13,6 +13,7 @@ public class Game  {
     private boolean tiro;
     private boolean fimDeJogo= false;
     private long ultimoTiro;
+    private int qtdOp = 0;
 
     public Game(int largura, int altura) {
         this.largura = largura;
@@ -26,8 +27,11 @@ public class Game  {
     public void initGame()
     {
         add(new Bola(50, 50, 50, 50, Color.BLACK, this));
+        qtdOp++;
         add(new Bola(100, 50, 50, 50, Color.BLACK, this));
+        qtdOp++;
         add(new Bola(150, 50, 50, 50, Color.BLACK, this));
+        qtdOp++;
         placar = 0;
         danos = 0;
     }
@@ -101,12 +105,16 @@ public class Game  {
                 player.setIncX(0);
             }
             
-            this.tiro = tiro;
+            if(qtdOp > 0)
+                this.tiro = tiro;
+            else
+                this.tiro = false;
             
             if(fimDeJogo && reiniciar)
             {
                 fimDeJogo = false;
                 reiniciar = false;
+                qtdOp = 0;
                 initGame();
             }
     }
@@ -138,11 +146,27 @@ public class Game  {
 
         for(Base b: objetos)
         {
-            if(b.getX() < 0)
-                b.setIncX(1);
+            if(b.getX() < 0){
+                for (Base c: objetos) {
+                    if(c instanceof Bola){
+                        c.setIncX(1);
+                        //c.setIncY(10); 
+                        c.setY(c.getY()+20);
+                    }
+                }
+            }
+            if(b.getX() > getLargura() - b.largura){
+                for (Base c: objetos) {
+                    if(c instanceof Bola){
+                        c.setIncX(-1);
+                        //c.setIncY(10); 
+                        c.setY(c.getY()+20);
+                    }
+                }              
+            }
             
-            if(b.getY() < 0)
-                b.setIncY(1);
+            //if(b.getY() < 0)
+              //      b.setIncY(10);  
             
             if(b.getX() > largura - b.getLargura())
                 b.setIncX(-1);
@@ -153,6 +177,7 @@ public class Game  {
     private void desenharPlacar(Graphics bg) {
         bg.setColor(Color.BLACK);
         bg.drawString("Placar: " + placar + " Danos: " + danos,50,50);
+        bg.drawString("OP: " + qtdOp, 50,100);
     }
 
     private void limpaTela(Graphics bg) {
@@ -203,7 +228,7 @@ public class Game  {
       if(tiro)
       {
         long tempoAtual = System.currentTimeMillis();
-        if(tempoAtual >  ultimoTiro + 30)
+        if(tempoAtual >  ultimoTiro + 200)
         {
             ultimoTiro = tempoAtual;
             Tiro t = new Tiro(player.x + player.largura/2, player.y-20, 5,10,Color.RED, this);
@@ -215,13 +240,22 @@ public class Game  {
     }
 
     private void verificaTiro() {
-        for(Base x: objetos)
+        for(Base x: objetos){
             for(Base y: objetos)
+            {
                 if(x.colisaoCom(y) && x instanceof Tiro)
                 {
                     lixo.add(x);
                     lixo.add(y);
+                    --qtdOp;
                 }
+                if(y instanceof Tiro && y.y < 0){
+                    lixo.add(y);
+                    
+                }
+            }
+        }
+        
     }
 
     //Fase do chefão

@@ -22,10 +22,6 @@ public class Bola extends Base{
         rect.x = x;
         rect.y = y;
     }
-     @Override
-     public boolean colisaoCom(Base b) {
-            return true;
-    }
      
      @Override
      public void desenhar(Graphics g)
