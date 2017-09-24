@@ -187,7 +187,7 @@ public class Frame extends javax.swing.JFrame implements Runnable {
                 maxFire = x.createLevel(getWidth(), getHeight(), nivel++);
             }
 
-            if (countFire > maxFire) {
+            if (countFire >= maxFire) {
                 countFire = 0;
             }
 

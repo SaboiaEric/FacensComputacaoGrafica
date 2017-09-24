@@ -5,6 +5,7 @@
  */
 package Struct;
 
+import Game.Game;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -83,19 +84,20 @@ public abstract class Element {
                 continue;
             }
             
-            /*if(t.type.PERSON == type.PERSON && this.type == Type.BULLET){
-                t.alive = false;
-            }*/
-
+            
             Rectangle rctB = new Rectangle(t.posX, t.posY, t.tamX, t.tamY);
             
             // Se ele colidir, ele morre!
             if (rctB.intersects(rctA)) {
                 alive = false;
+//                if(t instanceof Player){
+//                    return true;
+//                }
+                
             }
+            
 
         }
-
     }
     
     // move implementa a movimentação do elemento

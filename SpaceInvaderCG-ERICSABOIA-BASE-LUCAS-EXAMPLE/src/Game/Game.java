@@ -62,6 +62,7 @@ public class Game {
         ArrayList<Element> n = new ArrayList<Element>();
         
         for (Element u : elementos){ 
+            //Se colidiu com o personagem principal, reinicia o jogo
             u.collision(elementos);
             u.move(dir,esq);
             u.draw(g);
@@ -95,17 +96,16 @@ public class Game {
         
            for (Element u : elementos){
                
-            if(u.type == Element.Type.PERSON && u.team == Element.Team.A && !u.alive){
-                return false;
-            }
-            
-            if (u.alive && u.type == Element.Type.PERSON && u.team == Element.Team.B){
+                if(u.type == Element.Type.PERSON && u.team == Element.Team.A && !u.alive){
+                    return false;
+                }
                 
-                return false;
-            }
+                if (u.alive && u.type == Element.Type.PERSON && u.team == Element.Team.B){
+                    return false;
+                }
+                
             
-        }
-           
+            }
            return true;
         
     }
