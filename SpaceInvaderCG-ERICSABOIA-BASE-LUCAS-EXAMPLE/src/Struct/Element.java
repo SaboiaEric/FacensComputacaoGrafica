@@ -83,9 +83,9 @@ public abstract class Element {
                 continue;
             }
             
-            if(t.type.PERSON == type.PERSON && this.type == Type.BULLET){
+            /*if(t.type.PERSON == type.PERSON && this.type == Type.BULLET){
                 t.alive = false;
-            }
+            }*/
 
             Rectangle rctB = new Rectangle(t.posX, t.posY, t.tamX, t.tamY);
             
