@@ -45,6 +45,7 @@ public class Player extends Element {
     @Override
     public void atirar(Graphics g, boolean atirar, ArrayList<Element> list, int count) {
         if (atirar) {
+            //TAMANHO X, Y, POSIÇÃO X, Y,VELOCIDADE X,Y,CENÁRIO X,Y,TYPO,VIVO, TIME
             list.add(new Bullet(20, 15, posX, posY - 30, 0, -2, sceX, sceY, Element.Type.BULLET, true, Team.A));
         }
     }

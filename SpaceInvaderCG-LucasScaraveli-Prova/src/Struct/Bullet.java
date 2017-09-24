@@ -26,8 +26,8 @@ public class Bullet extends Element {
 
     @Override
     public void draw(Graphics g) {
-        if(alive)
-        g.fillOval(posX, posY, tamX, tamY);
+       // if(alive)
+        g.fillRect(posX, posY, tamX, tamY);
     }
 
     @Override

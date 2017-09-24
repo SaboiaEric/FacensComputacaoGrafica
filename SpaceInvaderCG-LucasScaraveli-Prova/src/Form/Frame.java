@@ -151,85 +151,46 @@ public class Frame extends javax.swing.JFrame implements Runnable {
 
     @Override
     public void run() {
-
+        
+        while(true){
+        
         Random rdm = new Random();
         int countFire = 0;
 
         ArrayList<Element> elements = new ArrayList<Element>();
 
-       /* Player a = new Player(55, 15, 80, 550, 0, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.A);
-        Enemy b = new Enemy(30, 30, 25, 35, 1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-        Enemy c = new Enemy(30, 30, 100, 35, 1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-        Enemy h = new Enemy(30, 30, 175, 35, 1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-        Enemy q = new Enemy(30, 30, 35, 95, -1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-        Enemy e = new Enemy(30, 30, 200, 95, -1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-        Enemy w = new Enemy(30, 30, 450, 95, -1, 0, getWidth(), getHeight(), Element.Type.PERSON, true, Element.Team.B);
-       
-        elements.add(a);
-        elements.add(b);
-        elements.add(c);
-        elements.add(h);
-        elements.add(w);
-        elements.add(q);
-        elements.add(e);*/
-       
        Game x = new Game();
        
        int nivel = 1;
-       int maxFire;
+       int maxFire = 280;
           
        maxFire = x.createLevel(getWidth(), getHeight(), nivel);
 
         while (/*qntBolas(elements) > 0*/true) {
             
             
-            if(x.acabou()){
-                maxFire = x.createLevel(getWidth(), getHeight(), nivel++);
+            if (acabou(x.elementos)){
+               break;
             }
-
+            
             if (countFire > maxFire) {
                 countFire = 0;
             }
+            
+            if(x.elementos.size() == 1)
+                x = new Game();
 
             Graphics g = getBufferStrategy().getDrawGraphics();
-            
-            
-            
+                      
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, getWidth(), getHeight());
             
             x.drawScores(g);
 
             g.setColor(Color.RED);
-            
-            if(maxFire == 0)
-                return;
-
-    /*        if (!fb) {
-                g.drawString("VAI COMEÇAR!!!!", getHeight() / 2, getWidth() / 2);
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException ex) {
-
-                }
-                fb = true;
-            }*/
-            // Font b = new Font("Arial", 1, 25);
-            //  g.setFont(b);
-            //    g.drawString(Integer.toString(qntBolas(elements)), 30, 60);
 
             ArrayList<Element> novos = new ArrayList<Element>();
-
-           // for (Element u : elements) {
-
-               // u.refreshScenario(getWidth(), getHeight());
-               
                 x.render(g, setaDireita ? 1 : -1, setaEsquerda ? 1 : -1, atirar,countFire );
-
-              //  u.draw(g);
-
-              //  u.move(setaDireita ? 1 : -1, setaEsquerda ? 1 : -1);
-              //  u.atirar(g, atirar, novos, countFire);
                 if (atirar) {
                     atirar = false;
                 }
@@ -251,9 +212,20 @@ public class Frame extends javax.swing.JFrame implements Runnable {
 
             g.dispose();
             getBufferStrategy().show();
+        
         }
-
+        }
         //  run();
+    }
+    
+    public boolean acabou (ArrayList<Element> e){
+        for(Element h: e){
+            if(h.team == h.team.B){
+                return false;
+            }
+        }
+        
+        return true;
     }
 
 

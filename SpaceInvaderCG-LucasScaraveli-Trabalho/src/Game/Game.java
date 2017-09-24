@@ -25,8 +25,7 @@ public class Game {
     public boolean direita;
     
     public int createLevel(int w,int h,int n){
-        
-        
+          
         nivel = n;
         if(n == 6){
             elementos = new ArrayList<Element>();
@@ -46,12 +45,12 @@ public class Game {
             elementos.add(b);
             return 45;
         } else {
-        for(int j = 1; j < n; j++){
-        for(int i = 1; i <= 5; i++){
-            Enemy b = new Enemy(30, 30, 90*i, 100*j, 1, 0, w, h, Element.Type.PERSON, true, Element.Team.B);
-            elementos.add(b);
-        }
-        }
+            for(int j = 1; j < n; j++){
+                for(int i = 1; i <= 5; i++){
+                    Enemy b = new Enemy(30, 30, 90*i, 100*j, 1, 0, w, h, Element.Type.PERSON, true, Element.Team.B);
+                    elementos.add(b);
+                }
+            }
         }
         
         return 380 / n;
