@@ -43,7 +43,7 @@ public class Teclas
         canvas.addGLEventListener(this);
         
         JFrame frame = new JFrame("Exemplo01");
-        frame.setSize(500, 500);
+        frame.setSize(250, 250);
         frame.getContentPane().add(canvas);
         frame.setVisible(true);
       
