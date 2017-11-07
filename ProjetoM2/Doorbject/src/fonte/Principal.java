@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 //Pesquisas que podem ajudar:
 /*
 https://stackoverflow.com/questions/1939317/how-do-i-find-method-calls
-
  */
 public class Principal implements GLEventListener, KeyListener {
 
@@ -49,6 +48,7 @@ public class Principal implements GLEventListener, KeyListener {
         frame.setVisible(true);
 
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 new Thread(new Runnable() {
                     public void run() {
@@ -57,6 +57,7 @@ public class Principal implements GLEventListener, KeyListener {
                 }).start();
             }
         });
+        frame.addKeyListener(this);
 
     }
 
@@ -150,7 +151,7 @@ public class Principal implements GLEventListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -182,5 +183,4 @@ public class Principal implements GLEventListener, KeyListener {
             shot = false;
         }
     }
-
 }
