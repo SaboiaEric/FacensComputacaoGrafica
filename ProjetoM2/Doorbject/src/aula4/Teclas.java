@@ -35,7 +35,7 @@ public class Teclas
         new Teclas();
     }
     private boolean up;
-    private boolean down;
+    private boolean down,shot;
     
     public Teclas()
     {
@@ -244,6 +244,10 @@ public class Teclas
         
         if(ke.getKeyCode() == KeyEvent.VK_DOWN)
             down = true;
+        
+        if (ke.getKeyCode() == KeyEvent.VK_SPACE || ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            shot = true;
+        }
                 
     }
 
@@ -255,6 +259,9 @@ public class Teclas
         
         if(ke.getKeyCode() == KeyEvent.VK_DOWN)
             down = false;
+        if (ke.getKeyCode() == KeyEvent.VK_SPACE || ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            shot = false;
+        }
 
     }
 
